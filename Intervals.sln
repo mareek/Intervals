@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Intervals", "Intervals\Intervals.xproj", "{3826D6FF-A682-43C3-929E-D75468760944}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Intervals.Tests", "Intervals.Tests\Intervals.Tests.xproj", "{57575186-FC7C-4E0E-A018-EF6EAE619497}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3826D6FF-A682-43C3-929E-D75468760944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3826D6FF-A682-43C3-929E-D75468760944}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3826D6FF-A682-43C3-929E-D75468760944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57575186-FC7C-4E0E-A018-EF6EAE619497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57575186-FC7C-4E0E-A018-EF6EAE619497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57575186-FC7C-4E0E-A018-EF6EAE619497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57575186-FC7C-4E0E-A018-EF6EAE619497}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

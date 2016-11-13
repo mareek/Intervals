@@ -29,5 +29,15 @@ namespace Intervals
         public T UpperBound { get; }
 
         public T LowerBound { get; }
+
+        public bool Contains(T item) => LowerBound.CompareTo(item) <= 0 && 0 <= UpperBound.CompareTo(item);
+
+        public bool IntersectWith(ContinuousInterval<T> other) => LowerBound.CompareTo(other.UpperBound) <= 0 && 0 <= UpperBound.CompareTo(other.LowerBound);
+    }
+
+    public static class ContinuousInterval
+    {
+        public static ContinuousInterval<T> Create<T>(T lowerBound, T upperBound) where T : IComparable<T>
+            => new ContinuousInterval<T>(lowerBound, upperBound);
     }
 }

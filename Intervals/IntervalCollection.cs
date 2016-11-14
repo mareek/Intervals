@@ -38,5 +38,7 @@ namespace Intervals
                 }
             }
         }
+
+        public bool Contains(T value) => _intervals.Any(i => i.Contains(value));
     }
 }

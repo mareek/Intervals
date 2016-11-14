@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Intervals
 {
-    public class ContinuousInterval<T> where T : IComparable<T>
+    public class ContinuousInterval<T>
+        where T : IComparable<T>
     {
         public ContinuousInterval(T lowerBound, T upperBound)
         {

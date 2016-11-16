@@ -7,7 +7,7 @@ namespace Intervals
 {
     public class IntervalCollection<T> where T : IComparable<T>
     {
-        private readonly List<ContinuousInterval<T>> _intervals;
+        private List<ContinuousInterval<T>> _intervals;
 
         public IntervalCollection(T lowerBound, T upperBound)
             : this(ContinuousInterval.Create(lowerBound, upperBound))
@@ -40,5 +40,13 @@ namespace Intervals
         }
 
         public bool Contains(T value) => _intervals.Any(i => i.Contains(value));
+
+        public void Add(T lowerBound, T upperBound) => Add(ContinuousInterval.Create(lowerBound, upperBound));
+
+        public void Add(ContinuousInterval<T> newInterval)
+        {
+            _intervals = _intervals.Concat(new[] { newInterval }).OrderBy(i => i.LowerBound).ToList();
+            Compact();
+        }
     }
 }

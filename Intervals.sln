@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Intervals", "Intervals\Intervals.xproj", "{3826D6FF-A682-43C3-929E-D75468760944}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intervals", "Intervals\Intervals.csproj", "{3826D6FF-A682-43C3-929E-D75468760944}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Intervals.Tests", "Intervals.Tests\Intervals.Tests.xproj", "{57575186-FC7C-4E0E-A018-EF6EAE619497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intervals.Tests", "Intervals.Tests\Intervals.Tests.csproj", "{57575186-FC7C-4E0E-A018-EF6EAE619497}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

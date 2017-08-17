@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intervals
 {
     public class IntervalCollection<T> where T : IComparable<T>
     {
-        private List<ContinuousInterval<T>> _intervals;
+        private readonly List<ContinuousInterval<T>> _intervals = new List<ContinuousInterval<T>>();
 
         public IntervalCollection(T lowerBound, T upperBound)
             : this(ContinuousInterval.Create(lowerBound, upperBound))
@@ -16,26 +15,9 @@ namespace Intervals
 
         public IntervalCollection(params ContinuousInterval<T>[] intervals)
         {
-            _intervals = intervals.OrderBy(i => i.LowerBound).ToList();
-            Compact();
-        }
-
-        private void Compact()
-        {
-            int i = 0;
-            while (i < _intervals.Count - 1)
+            foreach (var interval in intervals)
             {
-                var current = _intervals[i];
-                var next = _intervals[i + 1];
-                if (current.IntersectWith(next))
-                {
-                    _intervals[i] = ContinuousInterval.Create(current.LowerBound, next.UpperBound);
-                    _intervals.RemoveAt(i + 1);
-                }
-                else
-                {
-                    i++;
-                }
+                Add(interval);
             }
         }
 
@@ -45,8 +27,65 @@ namespace Intervals
 
         public void Add(ContinuousInterval<T> newInterval)
         {
-            _intervals = _intervals.Concat(new[] { newInterval }).OrderBy(i => i.LowerBound).ToList();
-            Compact();
+            int i = 0;
+            bool hasBeenAdded = false;
+            while (!hasBeenAdded && i < _intervals.Count)
+            {
+                var current = _intervals[i];
+                if (current.Contains(newInterval))
+                {
+                    return;
+                }
+                else if (newInterval.Contains(current))
+                {
+                    _intervals[i] = newInterval;
+                    hasBeenAdded = true;
+                }
+                else if (newInterval.IntersectWith(current))
+                {
+                    _intervals[i] = ContinuousInterval.Create(Comparable.Min(newInterval.LowerBound, current.LowerBound), Comparable.Max(newInterval.UpperBound, current.UpperBound));
+                    hasBeenAdded = true;
+                }
+                else if (newInterval.LowerBound.IsGreaterThan(current.UpperBound))
+                {
+                    _intervals.Insert(i + 1, newInterval);
+                    hasBeenAdded = true;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            if (!hasBeenAdded)
+            {
+                _intervals.Add(newInterval);
+            }
+            else
+            {
+                Compact(i);
+            }
         }
+
+        private void Compact(int at)
+        {
+            int atNext = at + 1;
+            while (at < _intervals.Count - 1)
+            {
+                var current = _intervals[at];
+                var next = _intervals[atNext];
+                if (current.IntersectWith(next))
+                {
+                    _intervals[at] = ContinuousInterval.Create(current.LowerBound, next.UpperBound);
+                    _intervals.RemoveAt(atNext);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+
     }
 }

@@ -48,7 +48,6 @@ namespace Intervals.Tests
             var privateInterval = GetPrivateInterval(collection).Single();
             Assert.Equal(0, privateInterval.LowerBound);
             Assert.Equal(10, privateInterval.UpperBound);
-
         }
     }
 }

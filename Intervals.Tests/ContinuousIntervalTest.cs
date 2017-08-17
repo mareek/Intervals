@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Intervals.Tests
@@ -27,8 +24,24 @@ namespace Intervals.Tests
         [InlineData(-4, -2, -1, false)]
         [InlineData(-4, -2, -5, false)]
         [InlineData(-4, -2, 3, false)]
-        public void ContainsInt(int lowerBound, int upperBound, int value, bool result)
+        public void ContainsValue(int lowerBound, int upperBound, int value, bool result)
             => Assert.Equal(result, ContinuousInterval.Create(lowerBound, upperBound).Contains(value));
+
+        [Theory]
+        [InlineData(2, 2, 2, 2, true)]
+        [InlineData(2, 4, 2, 4, true)]
+        [InlineData(2, 5, 3, 4, true)]
+        [InlineData(2, 4, 2, 5, false)]
+        [InlineData(2, 4, 1, 4, false)]
+        [InlineData(-2, 4, 2, 3, true)]
+        [InlineData(-2, 4, -1, 3, true)]
+        [InlineData(-3, 4, -2, -1, true)]
+        [InlineData(-4, -1, -3, -2, true)]
+        [InlineData(-4, -2, -1, 5, false)]
+        [InlineData(-4, -2, -6, -5, false)]
+        [InlineData(-4, -2, 1, 2, false)]
+        public void ContainsInterval(int lowerBound, int upperBound, int otherLowerBound, int otherUpperBound, bool result)
+               => Assert.Equal(result, ContinuousInterval.Create(lowerBound, upperBound).Contains(ContinuousInterval.Create(otherLowerBound, otherUpperBound)));
 
         [Theory]
         [InlineData(2, 2, true, 2, 2)]

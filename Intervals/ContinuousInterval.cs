@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intervals
 {
@@ -18,9 +15,9 @@ namespace Intervals
             {
                 throw new ArgumentNullException(nameof(upperBound));
             }
-            else if (upperBound.CompareTo(lowerBound) < 0)
+            else if (upperBound.IsLessThan(lowerBound))
             {
-                throw new ArgumentException($"{nameof(upperBound)} must be superior or equal to {nameof(lowerBound)}", nameof(upperBound));
+                throw new ArgumentException($"{nameof(upperBound)} must be greater than or equal to {nameof(lowerBound)}", nameof(upperBound));
             }
 
             LowerBound = lowerBound;
@@ -31,9 +28,11 @@ namespace Intervals
 
         public T LowerBound { get; }
 
-        public bool Contains(T item) => LowerBound.CompareTo(item) <= 0 && 0 <= UpperBound.CompareTo(item);
+        public bool Contains(T item) => LowerBound.IsLessThanOrEqualTo(item) && UpperBound.IsGreaterThanOrEqualTo(item);
 
-        public bool IntersectWith(ContinuousInterval<T> other) => LowerBound.CompareTo(other.UpperBound) <= 0 && 0 <= UpperBound.CompareTo(other.LowerBound);
+        public bool Contains(ContinuousInterval<T> other) => Contains(other.LowerBound) && Contains(other.UpperBound);
+
+        public bool IntersectWith(ContinuousInterval<T> other) => LowerBound.IsLessThanOrEqualTo(other.UpperBound) && UpperBound.IsGreaterThanOrEqualTo(other.LowerBound);
     }
 
     public static class ContinuousInterval
